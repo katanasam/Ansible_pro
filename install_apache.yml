@@ -1,0 +1,19 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Mise a jour du repository
+    yum:
+      update_cache: yes
+
+  - name: Instalation du paquet apache2
+    yum:
+      name: httpd
+      state: latest
+
+  - name: Instalation de php 7.3
+    yum: 
+      name: php
+      state: latest
