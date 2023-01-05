@@ -1,0 +1,54 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: MISE à jour Ubuntu
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: MISE à jour Centos
+    yum:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"      
+
+# Ici ces serveurs seront ciblés  
+- hosts: web_serveurs
+  become: true
+  tasks:
+
+  - name: instalation de apache et de php UBUNTU
+    apt:
+      name:
+        - apache2
+        - php7.0-cli
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: instalationde httpd et php CENTOS
+    yum:
+      name:
+        - httpd
+        - php
+      state: latest
+    when: ansible_distribution == "CentOS"
+
+- hosts: db_serveurs
+  become: true
+  tasks:
+
+  - name: instalation de base de données mariadb Centos
+    yum:
+      name: mariadb
+      state: latest
+    when: ansible_distribution == "CentOS"
+
+   - name: instalation de base de données mariadb Ubuntu
+    yum:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "Ubuntu"
