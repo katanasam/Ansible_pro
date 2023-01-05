@@ -1,0 +1,40 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: mise à jour repo
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+ 
+  - name: instalation de apache
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+    
+  - name: ajout de php 
+    apt:
+      name: php7.0-cli 
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: mise à jour repo                
+    yum:                                  
+      update_cache: yes                   
+    when: ansible_distribution == "Centos"
+                                          
+  - name: instalation de apache           
+    yum:                                  
+      name: httpd                       
+      state: latest                       
+    when: ansible_distribution == "Centos"
+                                          
+  - name: ajout de php                    
+    yum:                                  
+      name: php                      
+      state: latest                       
+    when: ansible_distribution == "Centos"
+

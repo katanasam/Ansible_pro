@@ -4,14 +4,14 @@
   become: true
   tasks:
 
-  - name: instalation de mise à jour update (Centos) 
-    yum:
-      name: 
+  - name: instalation de mise à jour (Centos) 
+    package: 
+      update_only: yes
       update_cache: yes
       when: ansible_distribution == "CentOS"
 
-  - name: instakation mise à jour (Ubuntu)
-    apt:
+  - name: instalation de mise à jour (Ubuntu)
+    package:
       upgrade: dist
       update_cache: yes
       when: ansible_distribution == "Ubuntu"
@@ -21,15 +21,15 @@
   tasks:
 
   - name: instalation de apache  sur ubuntu serveur
-    apt:
+    package:
       name:
         - apache2
-        - libapache2-mod-php
+        - php5-cli
       state: latest
     when: ansible_distribution == "Ubuntu"
 
   - name: instalation de apache  sur ubuntu serveur     
-    dnf:       
+    package:       
       name:
         - httpd
         - php
