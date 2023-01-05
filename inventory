@@ -1,10 +1,10 @@
-[web_serveur]
-92.168.43.173
+[web_serveurs]
+192.168.43.173
 192.168.43.165
 
-[db_serveur]
-192.168.43.19
+[db_serveurs]
+kat@192.168.43.19
 
-[file_serveur]
-192.168.43.160
+[file_serveurs]
+kat@192.168.43.160
 

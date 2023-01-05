@@ -5,10 +5,9 @@
   tasks:
 
   - name: instalation de mise à jour update (Centos) 
-    dnf:
+    yum:
       name: 
       update_cache: yes
-      update_only: yes
       when: ansible_distribution == "CentOS"
 
   - name: instakation mise à jour (Ubuntu)
@@ -32,7 +31,7 @@
   - name: instalation de apache  sur ubuntu serveur     
     dnf:       
       name:
-         - httpd
-         - php
+        - httpd
+        - php
       state: latest
     when: ansible_distribution == "CentOS"
