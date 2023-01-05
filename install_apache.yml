@@ -4,16 +4,10 @@
   become: true
   tasks:
 
-  - name: Mise a jour du repository
-    yum:
+  - name: Mise a jour du repository et instalation de apache et php
+    package:
+      name: 
+        - "{{ variable_apache_paquet }}"
+        - "{{ variable_php_paquet }}"
       update_cache: yes
-
-  - name: Instalation du paquet apache2
-    yum:
-      name: httpd
-      state: latest
-
-  - name: Instalation de php 7.3
-    yum: 
-      name: php
       state: latest
