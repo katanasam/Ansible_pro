@@ -1,0 +1,44 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: MISE à jour Ubuntu
+    tags: always
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: MISE à jour Centos
+    tags: always
+    yum:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"      
+
+- hosts: all
+  become: true
+  tasks:
+       
+  - name: Création d'un utilisateur
+    tags: always
+    user:
+      name: kana
+      group: root 
+
+  - name: Ajout d'une clé ssh pour kana
+    tags: always
+    authorized_key:
+      user: kana
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDA2qbU+TkZM3iRkvPjmzhYm11Qobt0zqGzkTfEaZ1qs ansible clé"
+  
+  - name: Ajout de sudoer file pour kana
+    tags: always
+    copy:
+      src: sudoer_kana
+      dest: /etc/sudoers.d/kana
+      owner: root
+      group: root
+      mode: 0440
