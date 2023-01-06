@@ -18,6 +18,24 @@
       update_cache: yes
     when: ansible_distribution == "CentOS"      
 
+- hosts: workstations
+  become: true
+  tasks:
+
+  - name: installation unzip
+    package:
+      name: unzip
+ 
+  - name: installation de terraform
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: 0755
+      owner: root
+      group: root
+
+
 # Ici ces serveurs seront ciblés  
 - hosts: web_serveurs
   become: true
@@ -32,7 +50,7 @@
       state: latest
     when: ansible_distribution == "Ubuntu"
 
-  - name: instalationde httpd et php CENTOS
+  - name: installation de httpd et php CENTOS
     tags: apache,apache2,centos,httpd
     yum:
       name:
@@ -54,14 +72,14 @@
   become: true
   tasks:
 
-  - name: instalation de base de données mariadb Centos
+  - name: installation de base de données mariadb Centos
     tags: apache,apache2,ubuntu,maria
     yum:
       name: mariadb
       state: latest
     when: ansible_distribution == "CentOS"
 
-  - name: instalation de base de données mariadb Ubuntu
+  - name: installation de base de données mariadb Ubuntu
     apt:
       name: mariadb-server
       state: latest
@@ -71,7 +89,7 @@
   become: true
   tasks:
 
-  - name: instalation du serveur de fichier
+  - name: installation du serveur de fichier
     tags: samba
     package:
       name: samba
